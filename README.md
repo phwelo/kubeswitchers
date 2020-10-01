@@ -25,6 +25,12 @@ For example:
 
 Installation:
 ```
-git clone 
+git clone git@github.com:phwelo/kubeswitchers.git
+cd kubeswitchers
+chmod +x kr kf
+mv k? ~/.local/bin
+pip -r requirements.txt
+cd ..
+rm -rf kubeswitchers
 ```
-Once that is complete, download the repo. `pip install -r requirements.txt`
+if you don't have a `~/.local/bin`, you'll need to create it and add to `PATH` or use sudo and move it to `/usr/bin` or something.
