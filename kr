@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+from rofi import Rofi
+import glob
+import os
+import shutil
+
+searchpath = "/.kube/config.*"
+configpath = "/.kube/config"
+
+def list_kubeconfigs(path):
+    return glob.glob(path)
+
+def give_choice(kc_list):
+    r = Rofi()
+    nicer_list = []
+    for index, kc in enumerate(kc_list):
+        nicer_list.append(str(index) + ": "+ kc.split("/")[4])
+    r_index, _ = r.select('Which cluster?', nicer_list)
+    return kc_list[r_index]
+
+def implement_choice(filepath):
+    shutil.copy(filepath, os.path.expanduser("~") + configpath)
+
+def main():
+    kc_searchpath = os.path.expanduser("~") + searchpath
+    kcs = list_kubeconfigs(kc_searchpath)
+    kc_path = give_choice(kcs)
+    implement_choice(kc_path)
+
+main()

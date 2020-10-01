@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+from iterfzf import iterfzf
+import glob
+import os
+import shutil
+
+searchpath = "/.kube/config.*"
+configpath = "/.kube/config"
+
+def list_kubeconfigs(path):
+    return glob.glob(path)
+
+def give_choice(kc_list):
+    nicer_list = []
+    for index, kc in enumerate(kc_list):
+        nicer_list.append(str(index) + ": "+ kc.split("/")[4])
+    return kc_list[int(str(iterfzf(nicer_list))[0])]
+
+def implement_choice(filepath):
+    shutil.copy(filepath, os.path.expanduser("~") + configpath)
+
+def main():
+    kc_searchpath = os.path.expanduser("~") + searchpath
+    kcs = list_kubeconfigs(kc_searchpath)
+    kc_path = give_choice(kcs)
+    implement_choice(kc_path)
+
+main()
