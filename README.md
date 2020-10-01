@@ -23,7 +23,8 @@ For example:
  config.aws-config-number-2
 ```
 
-Usage:
+Installation:
 ```
-> python3 
+git clone 
 ```
+Once that is complete, download the repo. `pip install -r requirements.txt`
